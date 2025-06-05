@@ -6,13 +6,13 @@ import { AuthService } from '../../../utils/services/auth.service';
   selector: 'app-navbar',
   imports: [RouterLink],
   templateUrl: './navbar.component.html',
-})
+})  
 export class NavbarComponent {
   isLoggedIn: boolean = false;
 
  constructor(private auth: AuthService, private router: Router) {
     this.auth.isLoggedIn$.subscribe(status => {
-      this.isLoggedIn = status;
+    this.isLoggedIn = status;
     });
   }
 

@@ -11,7 +11,7 @@ export const routes: Routes = [
     path: 'users',
     loadComponent: () =>
       import('../app/pages/about/about').then((m) => m.About),
-    canActivate:[AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-todo',
@@ -22,27 +22,12 @@ export const routes: Routes = [
     loadComponent: () => import('../app/pages/add/add').then((m) => m.Add),
   },
 
-    {
-      path: 'login',
-      loadComponent: () =>
-        import('./shared/components/login-form/login-form.component').then(
-          (m) => m.LoginFormComponent
-        ),
-    },
-  //   {
-  //     path: 'register',
-  //     loadComponent: () =>
-  //       import('./components/register/register.component').then(
-  //         (m) => m.RegisterComponent
-  //       ),
-  //   },
-  //   {
-  //     path: 'details/:id',
-  //     loadComponent: () =>
-  //       import('./components/details/details.component').then(
-  //         (m) => m.DetailsComponent
-  //       ),
-  //   },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('../app/pages/login/login').then((m) => m.LoginComponent),
+  },
+
   {
     path: '',
     redirectTo: 'home',

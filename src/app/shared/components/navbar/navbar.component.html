@@ -6,7 +6,7 @@
     <li><a routerLink="/add-todo" class="hover:text-blue-400">Add ToDo</a></li>
     <li><a routerLink="/users" class="hover:text-blue-400">Users</a></li>
     <li>
-      <a (click)="handleAuthAction()"  class="hover:text-blue-400">
+      <a (click)="handleAuthAction()"  class="hover:text-blue-400 cursor-pointer">
         {{ isLoggedIn ? 'Logout' : 'Login' }}
       </a>
     </li>

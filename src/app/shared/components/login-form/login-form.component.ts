@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../utils/services/auth.service';
 
@@ -7,27 +12,30 @@ import { AuthService } from '../../../utils/services/auth.service';
   selector: 'app-login-form',
   imports: [ReactiveFormsModule],
   templateUrl: './login-form.component.html',
-  styles: ``
+  styles: ``,
 })
 export class LoginFormComponent {
   loginForm: FormGroup;
 
-  constructor(private fb:FormBuilder, private router: Router, private auth: AuthService){
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private auth: AuthService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
-
-   onSubmit() {
-     if (this.loginForm.invalid) {
-    this.loginForm.markAllAsTouched(); 
-    return;
-  }
+  onSubmit() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
     const formData = this.loginForm.value;
     console.log('Login Data:', formData);
-  this.auth.login(formData.email); // use AuthService now
-  this.router.navigate(['/']);
+    this.auth.login(formData.email); // use AuthService now
+    this.router.navigate(['/']);
   }
 }
