@@ -1,0 +1,16 @@
+@if (loading) {
+<div>Loading users...</div>
+} @if (error) {
+<div class="text-red-600 font-semibold">{{ error }}</div>
+} @if(!loading && !error && users.length === 0) {
+<div class="text-gray-600">No users found.</div>
+}@else {
+
+<div 
+  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4"
+>
+  @for (user of users; track $index) {
+   <app-user-card [user]="user"></app-user-card>
+  }
+</div>
+}
