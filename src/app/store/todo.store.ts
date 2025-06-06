@@ -1,5 +1,6 @@
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { ToDo } from '../utils/models/types';
+import { computed } from '@angular/core';
 
 export interface Todos {
   todos: ToDo[];
@@ -22,6 +23,9 @@ export const todoStore = signalStore(
     providedIn: 'root',
   },
   withState(initialTodos), 
+  withComputed(({ todos }) => ({
+    todoCount: computed(()=> todos().length),
+  })),
   withMethods(({ todos, ...store }) => ({
     addTodo: (todo: ToDo) => {
       const updatedTodos = [...todos(), todo];

@@ -9,5 +9,4 @@ import { User } from '../../../utils/models/types';
 })
 export class UserCardComponent {
   @Input() user!: User;  
-
 }

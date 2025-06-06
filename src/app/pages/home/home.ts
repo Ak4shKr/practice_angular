@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   loadItems() {
     this.items = this.todoStore.todos();
-    console.log('Items loaded from store:', this.items);
+    console.log('Items loaded from store & count:', this.items, this.todoStore.todoCount());
   }
 
   onDelete(id: number) {
