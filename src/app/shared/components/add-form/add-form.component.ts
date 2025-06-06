@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { todoStore } from '../../../store/todo.store';
+import { ToDo } from '../../../utils/models/types';
 
 @Component({
   selector: 'app-add-form',
@@ -17,6 +19,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddFormComponent implements OnInit {
   todoForm: FormGroup;
   todoId: number | null = null;
+
+  
+  todoStore = inject(todoStore)
+  todos: ToDo[] = this.todoStore.todos();
 
   constructor(
     private fb: FormBuilder,
@@ -34,20 +40,11 @@ export class AddFormComponent implements OnInit {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.todoId = +idParam;
-      const item = this.items.find((i) => i.id === this.todoId);
+      const item = this.todos.find((i) => i.id === this.todoId);
       if (item) {
         this.todoForm.patchValue(item);
       }
     }
-  }
-
-  get items(): any[] {
-    const stored = localStorage.getItem('items');
-    return stored ? JSON.parse(stored) : [];
-  }
-
-  set items(newItems: any[]) {
-    localStorage.setItem('items', JSON.stringify(newItems));
   }
 
   onSubmit() {
@@ -59,20 +56,15 @@ export class AddFormComponent implements OnInit {
     const formData = this.todoForm.value;
 
     if (this.todoId) {
-      // Edit flow
-      const updatedItems = this.items.map((item) =>
-        item.id === this.todoId ? { ...item, ...formData } : item
-      );
-      this.items = updatedItems;
+      this.todoStore.updateTodo({...formData, id: this.todoId });
     } else {
-      // Add flow
       const newItem = {
         ...formData,
-        id: this.items.length + 1,
+        id: this.todos.length + 1,
       };
-      this.items = [...this.items, newItem];
+      this.todoStore.addTodo(newItem);
     }
 
-    this.router.navigate(['/']); // go back to home after save
+    this.router.navigate(['/']); 
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { computed, Injectable, signal } from '@angular/core';
+// import { Observable } from 'rxjs';
 import { User } from '../models/types';
 
 interface ApiResponse {
@@ -8,14 +8,39 @@ interface ApiResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
-  baseUrl:string = 'https://randomuser.me/api/?results=20';  
+  baseUrl: string = 'https://randomuser.me/api/?results=20';
 
-  constructor(private http:HttpClient) { }
+  private _users = signal<User[]>([]);
+  private _loading = signal<boolean>(false);
+  private _error = signal<boolean>(false);
+  users = computed(() => this._users());
+  loading = computed(() => this._loading());
+  error = computed(() => this._error());
 
-  getUsers():Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.baseUrl);
+  constructor(private http: HttpClient) {
+    console.log('UsersService initialized');
+    this.getUsers();
+  }
+
+  getUsers() {
+    this._users.set([]);
+    this._loading.set(true);
+    this._error.set(false);
+
+    this.http.get<ApiResponse>(this.baseUrl).subscribe({
+      next: (res) => {
+        console.log('API response:', res);
+        this._users.set(res.results);
+        this._loading.set(false);
+      },
+      error: (err) => {
+        console.error('API error:', err);
+        this._error.set(true);
+        this._loading.set(false);
+      },
+    });
   }
 }

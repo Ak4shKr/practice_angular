@@ -1,5 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
-import { User } from '../../../utils/models/types';
+import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
 import { UsersService } from '../../../utils/services/users.service';
 import { UserCardComponent } from "../user-card/user-card.component";
 
@@ -10,38 +9,31 @@ import { UserCardComponent } from "../user-card/user-card.component";
   templateUrl: './users.component.html',
   styles: ``
 })
+
 export class AboutComponent implements OnDestroy {
-  users: User[] = [];
-  loading = true;
-  error = false;
   private intervalId: any;
 
-  constructor(private usersService: UsersService) {}
+  // public usersService = inject(UsersService);
+
+  refresh = signal<boolean>(false);
+
+  constructor(public usersService: UsersService) {
+    // effect(()=>{
+    //   console.log("refresh signal changed:", this.refresh()); 
+    // })
+  }
 
   ngOnInit() {
-    this.fetchUsers();
+    // this.usersService.getUsers(); 
     this.intervalId = setInterval(() => {
-      this.fetchUsers();
+      this.usersService.getUsers();
     }, 10000);
   }
 
-  fetchUsers() {
-    this.loading = true;
-    this.users = [];
-    this.usersService.getUsers().subscribe({
-      next: (response) => {
-        this.users = response.results;
-        this.loading = false;
-        this.error = false;
-        console.log('Users fetched successfully:', this.users);
-      },
-      error: (err) => {
-        console.error('Error fetching users:', err);
-        this.error = true;
-        this.loading = false;
-      }
-    });
-  }
+  // toggleRefresh() {
+  //   this.refresh.set(!this.refresh());
+  // }
+
 
   ngOnDestroy() {
     if (this.intervalId) {

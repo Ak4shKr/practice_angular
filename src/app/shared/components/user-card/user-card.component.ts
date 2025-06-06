@@ -8,6 +8,6 @@ import { User } from '../../../utils/models/types';
   styles: ``
 })
 export class UserCardComponent {
-  @Input() user!: User;  // Input property to accept a user object
+  @Input() user!: User;  
 
 }
