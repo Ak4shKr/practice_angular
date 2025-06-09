@@ -16,7 +16,7 @@ export class UsersService {
   private _users = signal<User[]>([]);
   private _loading = signal<boolean>(false);
   private _error = signal<boolean>(false);
-  users = computed(() => this._users());
+  users = computed(() => this._users()); 
   loading = computed(() => this._loading());
   error = computed(() => this._error());
 

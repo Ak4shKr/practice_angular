@@ -10,7 +10,6 @@ export const initialTodos: Todos = {
   todos: [],
 };
 
-
 export const todoStore = signalStore(
   {
     providedIn: 'root',
@@ -32,7 +31,7 @@ export const todoStore = signalStore(
       const updatedTodos = todos().map((t: ToDo) =>
         t.id === updatedTodo.id ? updatedTodo : t
       );
-      patchState(store, { todos: updatedTodos });
+   patchState(store, { todos: updatedTodos });
     },
   })),
   withHooks({
@@ -47,5 +46,4 @@ export const todoStore = signalStore(
         });
     }
   })
-
 );

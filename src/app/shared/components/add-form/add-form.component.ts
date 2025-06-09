@@ -9,16 +9,22 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { todoStore } from '../../../store/todo.store';
 import { ToDo } from '../../../utils/models/types';
+import {ButtonModule} from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-add-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,ButtonModule, InputTextModule],
   templateUrl: './add-form.component.html',
 })
 export class AddFormComponent implements OnInit {
   todoForm: FormGroup;
   todoId: number | null = null;
+
+  loadingButton: boolean = false;
+
+  title:string ="";
 
   
   todoStore = inject(todoStore)
@@ -64,7 +70,6 @@ export class AddFormComponent implements OnInit {
       };
       this.todoStore.addTodo(newItem);
     }
-
     this.router.navigate(['/']); 
   }
 }
