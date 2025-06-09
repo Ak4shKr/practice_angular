@@ -20,12 +20,11 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class AddFormComponent implements OnInit {
   todoForm: FormGroup;
-  todoId: number | null = null;
+  todoId: number | null = null; 
 
   loadingButton: boolean = false;
 
-  title:string ="";
-
+  // title:string ="";
   
   todoStore = inject(todoStore)
   todos: ToDo[] = this.todoStore.todos();

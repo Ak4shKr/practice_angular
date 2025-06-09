@@ -1,11 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+
 
 @Component({
   selector: 'app-to-do-card',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, ButtonModule],
   template: `
     <div class="bg-white p-4 shadow rounded mb-4 border border-gray-200">
       <h2 class="text-xl font-bold">{{ todo.title }}</h2>
