@@ -35,12 +35,13 @@ export class UsersService {
       next: (res) => {
         console.log('API response:', res);
         this._users.set(res.results);
-        this._loading.set(false);
       },
       error: (err) => {
         console.error('API error:', err);
         this._error.set(true);
-        this._loading.set(false);
+      },
+      complete: () => {
+          this._loading.set(false);
       },
     });
 

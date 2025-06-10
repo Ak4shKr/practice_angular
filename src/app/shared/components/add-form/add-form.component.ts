@@ -40,7 +40,7 @@ export class AddFormComponent implements OnInit {
       priority: ['medium', Validators.required],
     });
     this.todoForm.valueChanges.subscribe((value) => {
-      console.log('Form value changed:', value);
+      console.log('Form value changed:', this.todoForm);
     });
   }
 
