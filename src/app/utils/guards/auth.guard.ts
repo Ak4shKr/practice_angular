@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     const token = localStorage.getItem('angular_user');
     if (!token) {
-      this.notify.show('Please login to access this route.', 'Unauthorized');
+      this.notify.show("Authentication", "You are not authenticated. Please log in to continue.");
       this.router.navigate(['/']);
       return false;
     }

@@ -1,11 +1,12 @@
 import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
 import { UsersService } from '../../../utils/services/users.service';
 import { UserCardComponent } from "../user-card/user-card.component";
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   standalone: true,
   selector: 'app-about',
-  imports: [UserCardComponent],
+  imports: [UserCardComponent,ProgressSpinner],
   templateUrl: './users.component.html',
   styles: ``
 })

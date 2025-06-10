@@ -30,6 +30,7 @@ export class UsersService {
     this._loading.set(true);
     this._error.set(false);
 
+
     this.http.get<ApiResponse>(this.baseUrl).subscribe({
       next: (res) => {
         console.log('API response:', res);
@@ -42,5 +43,6 @@ export class UsersService {
         this._loading.set(false);
       },
     });
+
   }
 }

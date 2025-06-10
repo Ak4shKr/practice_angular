@@ -1,5 +1,7 @@
 @if (this.usersService.loading()) {
-<div>Loading users...</div>
+<div class="flex justify-center items-center">
+    <p-progress-spinner ariaLabel="loading" [style]="{ width: '40px', height: '40px' }" strokeWidth="3px"></p-progress-spinner>
+</div>
 } @if (this.usersService.error()) {
   @let error = this.usersService.error();
 <div class="text-red-600 font-semibold">{{ error }}</div>
